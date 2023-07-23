@@ -20,11 +20,12 @@
       "jsonwebtoken": "^9.0.1",
       "pg": "^8.4.0",
       "reflect-metadata": "^0.1.13",
+      "ts-node-dev": "^2.0.0",
       "typeorm": "0.3.9",
       "uuid": "^9.0.0"
    },
    "scripts": {
-      "start": "ts-node src/index.ts",
+      "start": "ts-node-dev src/index.ts",
       "typeorm": "typeorm-ts-node-commonjs"
    }
 }
