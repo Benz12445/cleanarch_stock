@@ -1,16 +1,17 @@
 export interface AddProductDto {
-  id?: string;
+  id?: number;
   name: string;
   qty: number;
   price: number;
 }
 
 export interface UpdateProductDto {
-  id: string;
+  id: number;
+  name: string;
   qty?: number;
   price?: number;
 }
 
 export interface RemoveProductDto {
-  id: string;
+  id: number;
 }
