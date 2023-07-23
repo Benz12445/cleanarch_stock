@@ -1,3 +1,8 @@
+export interface LoginMemberDto {
+  email: string;
+  password: string;
+}
+
 export interface RegisterMemberDto {
   uid?: string;
   firstName: string;
