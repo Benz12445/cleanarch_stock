@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  DeleteDateColumn,
 } from "typeorm";
 // import { IMember } from "../interfaces/entity/IMember";
 import { IMember } from "../../interfaces/entity/IMember";
@@ -39,4 +40,7 @@ export class Member implements IMember {
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt;
+
+  @DeleteDateColumn({ name: "deleted_at" })
+  deletedAt;
 }
