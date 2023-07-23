@@ -5,14 +5,17 @@ import { v4 as uuid } from "uuid";
 
 export class UpdateProduct {
   constructor(private productRepository: IProductRepository) {}
-  async execute(productData: any): Promise<void> {
+  async execute(productData: any): Promise<IProduct> {
     const { name, price, qty } = productData;
-    const uid = uuid();
-    const newProduct = new Product();
-    newProduct.name = name;
-    newProduct.price = price;
-    newProduct.qty = qty;
-    newProduct.uid = uid;
-    await this.productRepository.save(newProduct);
+    const existProduct = await this.productRepository.findById(
+      productData.productId
+    );
+
+    if (!existProduct) throw new Error(`product not found`);
+    existProduct.name = name;
+    existProduct.price = price;
+    existProduct.qty = qty;
+    const updateData = await this.productRepository.save(existProduct);
+    return updateData;
   }
 }

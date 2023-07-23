@@ -7,8 +7,9 @@ import { IProduct } from "../../../interfaces/entity/IProduct";
 import { IsNull } from "typeorm";
 
 export class ProductPgRepository implements IProductRepository {
-  async save(product: Product): Promise<void> {
-    await AppDataSource.getRepository(Product).save(product);
+  async save(product: Product): Promise<Product> {
+    const saveData = await AppDataSource.getRepository(Product).save(product);
+    return saveData;
   }
 
   async find(): Promise<Product[]> {
@@ -30,31 +31,5 @@ export class ProductPgRepository implements IProductRepository {
     await AppDataSource.getRepository(Product).softDelete({
       id: id,
     });
-  }
-
-  async update(
-    id: number,
-    name: string,
-    qty: number,
-    price: number
-  ): Promise<Product> {
-    const productData = await AppDataSource.getRepository(Product).findOne({
-      where: {
-        id: id,
-        deletedAt: IsNull(),
-      },
-    });
-
-    if (!productData) throw new Error("product not found");
-
-    productData.name = name;
-    productData.qty = qty;
-    productData.price = price;
-
-    const updatedtData = await AppDataSource.getRepository(Product).save(
-      productData
-    );
-
-    return updatedtData;
   }
 }
