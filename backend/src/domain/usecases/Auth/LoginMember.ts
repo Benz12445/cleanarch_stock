@@ -1,5 +1,5 @@
-import { LoginMemberDto } from "../../interfaces/dtos/loginMemberDto";
-import { IMemberRepository } from "../../interfaces/repositories/memberRepository";
+import { LoginMemberDto } from "../../../interfaces/dtos/memberDto";
+import { IMemberRepository } from "../../../interfaces/repositories/memberRepository";
 import { compareSync } from "bcrypt";
 import { sign } from "jsonwebtoken";
 
@@ -11,7 +11,6 @@ export class Login {
     );
 
     if (
-      existMemberData.deletedAt != null ||
       !existMemberData ||
       !compareSync(loginMemberData.password, existMemberData.password)
     ) {

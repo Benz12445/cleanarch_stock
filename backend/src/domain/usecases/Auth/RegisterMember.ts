@@ -1,6 +1,6 @@
-import { RegisterMemberDto } from "../../interfaces/dtos/registerMemberDto";
-import { IMemberRepository } from "../../interfaces/repositories/memberRepository";
-import { Member } from "../entity/Member";
+import { RegisterMemberDto } from "../../../interfaces/dtos/memberDto";
+import { IMemberRepository } from "../../../interfaces/repositories/memberRepository";
+import { Member } from "../../entity/Member";
 import { hash } from "bcrypt";
 
 export class Register {
@@ -10,7 +10,7 @@ export class Register {
       registerMemberData.email
     );
 
-    if (existMemberData && existMemberData.deletedAt != null) {
+    if (existMemberData) {
       throw new Error(`member already exists`);
     }
 
