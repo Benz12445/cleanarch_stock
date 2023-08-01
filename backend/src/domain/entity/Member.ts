@@ -23,8 +23,8 @@ export class Member implements IMember {
   @Column({ name: "lastname" })
   lastName: string;
 
-  @Column({ name: "email" })
-  email: string;
+  @Column({ name: "username" })
+  username: string;
 
   @Column({ name: "display_name" })
   displayName: string;
@@ -32,7 +32,7 @@ export class Member implements IMember {
   @Column({ name: "password" })
   password: string;
 
-  @Column({ name: "dob" })
+  @Column({ type: "date", name: "dob" })
   dateOfBirth;
 
   @CreateDateColumn({ name: "created_at" })

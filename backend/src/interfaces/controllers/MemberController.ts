@@ -17,16 +17,14 @@ export class MemberController {
   async register(req: Request, res: Response) {
     try {
       const registerData = req.body as RegisterMemberDto;
-      this.memberRegisUseCase.execute(registerData);
+      await this.memberRegisUseCase.execute(registerData);
 
       return res.status(200).json({
+        status: "success",
         message: "register sucess",
       });
     } catch (error) {
-      return res.status(500).json({
-        message: "error",
-        stack: error,
-      });
+      throw error;
     }
   }
 

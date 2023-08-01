@@ -9,14 +9,13 @@ export class MemberPgRepository implements IMemberRepository {
     await AppDataSource.getRepository(Member).save(mem);
   }
 
-  async findByEmail(email: string): Promise<Member | null> {
+  async findByUsername(username: string): Promise<Member | null> {
     const memberData = await AppDataSource.getRepository(Member).findOne({
       where: {
-        email: email,
+        username: username,
         deletedAt: IsNull(),
       },
     });
-    if (!memberData) throw new Error(`member not found`);
     return memberData;
   }
 
@@ -27,7 +26,6 @@ export class MemberPgRepository implements IMemberRepository {
         deletedAt: IsNull(),
       },
     });
-    if (!memberData) throw new Error(`member not found`);
     return memberData;
   }
 }

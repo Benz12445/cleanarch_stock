@@ -1,16 +1,14 @@
 export interface LoginMemberDto {
-  email: string;
+  username: string;
   password: string;
 }
 
 export interface RegisterMemberDto {
   uid?: string;
-  firstName: string;
-  lastName: string;
-  displayName: string;
-  email: string;
+  firstname: string;
+  lastname: string;
+  display_name: string;
+  username: string;
   password: string;
   dateOfBirth: string;
-  createdAt: string;
-  updatedAt: string;
 }

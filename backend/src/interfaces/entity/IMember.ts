@@ -4,7 +4,7 @@ export interface IMember {
   firstName?: string;
   lastName?: string;
   displayName?: string;
-  email: string;
+  username: string;
   password: string;
   dateOfBirth?: string;
   createdAt?: string;
