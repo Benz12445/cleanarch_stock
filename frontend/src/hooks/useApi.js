@@ -11,28 +11,30 @@ const useApi = (url, method = "GET", headers = {}) => {
   const [status, setStatus] = useState(null);
 
   const execute = useCallback(
-    async (bodydata = null) => {
-      console.log(`begin execute`);
-      setIsLoading(true);
-      setError(null);
-      try {
+    (data) => {
+      return new Promise((res, rej) => {
+        setIsLoading(true);
+        setError(null);
         const config = {
           url: url,
           baseURL: base_url,
           method: method,
-          data: bodydata,
+          data: data,
         };
-        console.log(`config`);
-        console.log(config);
-        const res = await axios(config);
-        setResponse(res.data);
-        setStatus(res.status);
-      } catch (err) {
-        console.log(`error`, err);
-        setError(err);
-      } finally {
-        setIsLoading(false);
-      }
+        axios(config)
+          .then((response) => {
+            setResponse(response.data);
+            setStatus(response.status);
+            res(response);
+          })
+          .catch((err) => {
+            setError(err);
+            rej(err);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      });
     },
     [url, method]
   );
@@ -42,7 +44,7 @@ const useApi = (url, method = "GET", headers = {}) => {
     error,
     isLoading,
     status,
-    execute: () => execute().then(() => response),
+    execute: (dt) => execute(dt),
   };
 };
 

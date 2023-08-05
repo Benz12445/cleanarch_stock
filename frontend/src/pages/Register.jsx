@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -7,7 +7,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useApi from "../hooks/useApi";
-function Register() {
+function ProductForm() {
   const {
     register,
     handleSubmit,
@@ -15,19 +15,13 @@ function Register() {
     formState: { errors },
   } = useForm();
 
-  const { response, status, error, isLoading, execute } = useApi(
-    "/auth/register",
-    "POST"
-  );
+  const { error, isLoading, execute } = useApi("/auth/register", "POST");
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
     console.log(`on submit data`, data);
-    execute(data).then(() => {
-      console.log(`regis success`);
-      console.log(response);
-      console.log(status);
-      if (status == 200 && response.status === "success") {
+    execute({ ...data }).then((res) => {
+      if (res.status == 200 && res.status === "success") {
         navigate("/login");
       }
     });
@@ -38,11 +32,12 @@ function Register() {
       <CssBaseline />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid
-          justifyContent="center"
+          sx={{
+            height: "100vh",
+            alignContent: "center",
+          }}
           container
           spacing={2}
-          paddingLeft={1}
-          paddingRight={1}
         >
           <Grid item xs={12} sm={12} md={6}>
             <TextField
@@ -102,4 +97,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default ProductForm;

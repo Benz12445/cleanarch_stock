@@ -1,25 +1,33 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import { Container } from "@mui/material";
 import Register from "./pages/Register";
+import Home from "./pages/Home";
+import ProductForm from "./pages/ProductForm";
+import { AppProvider } from "./context/AppContext";
+import { routes } from "./constants/route";
 
 function App() {
   const [count, setCount] = useState(0);
-
+  // id
+  // uid
+  // name
+  // qty
+  // price
   return (
-    <>
-      <Container maxWidth="xl">
+    <AppProvider>
+      <Container maxWidth="xl" sx={{ height: "100vh", margin: 0, padding: 0 }}>
         <BrowserRouter>
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path={routes.HOME.path} element={<Home />} />
+            <Route path={routes.PRODUCT.path} element={<ProductForm />} />
+            <Route path={routes.LOGIN.path} element={<Login />} />
+            <Route path={routes.REGISTER.path} element={<Register />} />
           </Routes>
         </BrowserRouter>
       </Container>
-    </>
+    </AppProvider>
   );
 }
 
