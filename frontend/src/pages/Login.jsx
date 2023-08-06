@@ -44,7 +44,7 @@ function Login() {
         padding: 2,
         justifyContent: "center",
 
-        width: { xs: "100%", xs: "100%", md: "640px" },
+        width: { xs: "100%", md: "640px" },
       }}
     >
       <CssBaseline />
