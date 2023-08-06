@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const AppContext = createContext();
@@ -17,8 +17,18 @@ export function AppProvider({ children }) {
     loading: false,
     isDrawerOpen: false,
     currentRoute: "",
-    auth: true,
+    auth: false,
   });
+
+  useEffect(() => {
+    if (
+      !localStorage.getItem(`token`) &&
+      window.location.pathname != "/login"
+    ) {
+      console.log(window.location);
+      window.location.href = "/login";
+    }
+  }, []);
 
   const logout = () => {
     localStorage.removeItem(`token`);
