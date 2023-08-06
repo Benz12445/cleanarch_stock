@@ -10,7 +10,16 @@ import { routes } from "./constants/route";
 function App() {
   return (
     <AppProvider>
-      <Container maxWidth="xl" sx={{ height: "100vh", margin: 0, padding: 0 }}>
+      <Container
+        sx={{
+          height: "100vh",
+          maxWidth: "100vw !important",
+          margin: "0 !important",
+          paddingLeft: "0 !important",
+          paddingRight: "0 !important",
+          justifyContent: "center",
+        }}
+      >
         <BrowserRouter>
           <Routes>
             <Route path={routes.HOME.path} element={<Home />} />

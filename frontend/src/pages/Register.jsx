@@ -29,7 +29,7 @@ function ProductForm() {
   };
 
   return (
-    <Container sx={{ padding: 2 }}>
+    <Container maxWidth="xl" sx={{ padding: 2 }}>
       {/* <></> */}
       <CssBaseline />
       <form onSubmit={handleSubmit(onSubmit)}>

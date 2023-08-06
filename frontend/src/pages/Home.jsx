@@ -56,7 +56,7 @@ function Home() {
         <AddIcon />
       </Fab>
       <BaseLayout>
-        <Grid container spacing={2} sx={{ width: "100vw" }}>
+        <Grid container spacing={2} sx={{ width: "100vw", marginTop: 1 }}>
           <List sx={{ width: "100%" }}>
             {productList.map((item) => (
               <ListItem disablePadding>

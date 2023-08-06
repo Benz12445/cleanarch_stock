@@ -28,10 +28,6 @@ function Login() {
   const onSubmit = (data) => {
     console.log(`on submit data`, data);
     execute({ ...data }).then((res) => {
-      console.log(`regis success`);
-      console.log(response);
-      console.log(status);
-      console.log(`res`, res);
       if (res.status == 200) {
         const { data } = res.data;
         localStorage.setItem(`token`, data);
@@ -42,7 +38,15 @@ function Login() {
   };
 
   return (
-    <>
+    <Container
+      maxWidth="xl"
+      sx={{
+        padding: 2,
+        justifyContent: "center",
+
+        width: { xs: "100%", xs: "100%", md: "640px" },
+      }}
+    >
       <CssBaseline />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid
@@ -55,7 +59,7 @@ function Login() {
           paddingLeft={2}
           paddingRight={2}
         >
-          <Grid item xs={12} sm={12} md={6}>
+          <Grid item xs={12} sm={12} md={12}>
             <TextField
               fullWidth
               id="standard-basic"
@@ -64,7 +68,7 @@ function Login() {
               {...register("username", { required: true })}
             />
           </Grid>
-          <Grid item xs={12} sm={12} md={6}>
+          <Grid item xs={12} sm={12} md={12}>
             <TextField
               fullWidth
               id="standard-basic"
@@ -86,7 +90,7 @@ function Login() {
           </Grid>
         </Grid>
       </form>
-    </>
+    </Container>
   );
 }
 
