@@ -23,7 +23,8 @@ export function AppProvider({ children }) {
   useEffect(() => {
     if (
       !localStorage.getItem(`token`) &&
-      window.location.pathname != "/login"
+      window.location.pathname != "/login" &&
+      window.location.pathname != "/register"
     ) {
       console.log(window.location);
       window.location.href = "/login";
