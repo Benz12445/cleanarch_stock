@@ -30,13 +30,11 @@ export class ProductController {
       this.addProductUseCase.execute(prodData);
 
       return res.status(200).json({
+        status: "success",
         message: "product created",
       });
     } catch (error) {
-      return res.status(500).json({
-        message: "error",
-        stack: error,
-      });
+      throw error;
     }
   }
 
@@ -48,6 +46,7 @@ export class ProductController {
     const update_data = await this.updateProductUseCase.execute(prodData);
 
     return res.status(200).json({
+      status: "success",
       message: "product update",
       data: update_data,
     });
@@ -59,6 +58,7 @@ export class ProductController {
     await this.removeProductUseCase.execute(parseInt(product_id));
 
     return res.status(200).json({
+      status: "success",
       message: "product remove",
     });
   }
@@ -71,6 +71,7 @@ export class ProductController {
     );
 
     return res.status(200).json({
+      status: "success",
       message: "get product",
       data: update_data,
     });
@@ -81,16 +82,14 @@ export class ProductController {
       const list = await this.getProductListUseCase.execute({});
       console.log(this.getProductListUseCase);
       return res.status(200).json({
+        status: "success",
         message: "get product list",
         data: list,
       });
     } catch (error) {
       console.log(this.getProductListUseCase);
       console.log(`error`, error);
-      return res.status(500).json({
-        message: "get product list",
-        stack: error,
-      });
+      throw error;
     }
   }
 }

@@ -31,6 +31,7 @@ export class MemberController {
   async login(req: Request, res: Response) {
     try {
       const loginData = req.body as LoginMemberDto;
+      console.log(`logindata`, loginData);
       const token = await this.memberLoginUseCase.execute(loginData);
 
       return res.status(200).json({
@@ -38,10 +39,7 @@ export class MemberController {
         data: token,
       });
     } catch (error) {
-      return res.status(500).json({
-        message: "error",
-        stack: error,
-      });
+      throw error;
     }
   }
 }

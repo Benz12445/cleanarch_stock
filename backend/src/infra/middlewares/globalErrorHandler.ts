@@ -1,22 +1,22 @@
 import { Request, Response } from "express";
 import { JsonWebTokenError } from "jsonwebtoken";
 import { NotFoundException } from "../../interfaces/exceptions/NotFound";
-import { DupplicateException } from "../../interfaces/exceptions/Dupplicate";
+import { InvalidParam } from "../../interfaces/exceptions/InvalidParam";
 
 const sendErrorDev = (error: any, req: Request, res: Response) => {
   console.log(`middleware`);
   console.log(error);
-  console.log(error instanceof DupplicateException);
+  console.log(error instanceof InvalidParam);
   if (error instanceof NotFoundException) {
     return res.status(404).json({
       status: `error`,
       message: "not found",
       stack: error.stack,
     });
-  } else if (error instanceof DupplicateException) {
+  } else if (error instanceof InvalidParam) {
     return res.status(400).json({
       status: `error`,
-      message: "not found",
+      message: "invalid parameters",
       stack: error.stack,
     });
   } else {

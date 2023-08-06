@@ -1,5 +1,5 @@
 import { RegisterMemberDto } from "../../../interfaces/dtos/memberDto";
-import { DupplicateException } from "../../../interfaces/exceptions/Dupplicate";
+import { InvalidParam } from "../../../interfaces/exceptions/InvalidParam";
 import { NotFoundException } from "../../../interfaces/exceptions/NotFound";
 import { IMemberRepository } from "../../../interfaces/repositories/memberRepository";
 import { Member } from "../../entity/Member";
@@ -10,13 +10,14 @@ import { v4 as uuid } from "uuid";
 export class Register {
   constructor(private memberRepo: IMemberRepository) {}
   async execute(registerMemberData: RegisterMemberDto): Promise<void> {
+    console.log(`reg`, registerMemberData);
     try {
       const existMemberData = await this.memberRepo.findByUsername(
         registerMemberData.username
       );
-
+      console.log(`ex`, existMemberData);
       if (existMemberData) {
-        throw new DupplicateException(`member already exists`);
+        throw new InvalidParam(`member already exists`);
       }
 
       const {
