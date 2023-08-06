@@ -8,6 +8,7 @@ import { Container, Fab } from "@mui/material";
 import useApi from "../hooks/useApi";
 import { useNavigate } from "react-router-dom";
 import Link from "@mui/material/Link";
+import { useSetAppCtx } from "../context/AppContext";
 function Login() {
   const {
     register,
@@ -16,6 +17,7 @@ function Login() {
     formState: { errors },
   } = useForm();
 
+  const { setGlobalState } = useSetAppCtx();
   const { response, status, error, isLoading, execute } = useApi(
     "/auth/login",
     "POST"
@@ -30,10 +32,11 @@ function Login() {
       console.log(response);
       console.log(status);
       console.log(`res`, res);
-      if (status == 200 && response.status === "success") {
-        // navigate("/home");
-        // console.log(``)
-        // localStorage.setItem()
+      if (res.status == 200) {
+        const { data } = res.data;
+        localStorage.setItem(`token`, data);
+        setGlobalState((prev) => ({ ...prev, auth: true }));
+        navigate("/");
       }
     });
   };
@@ -49,8 +52,8 @@ function Login() {
           }}
           container
           spacing={2}
-          paddingLeft={1}
-          paddingRight={1}
+          paddingLeft={2}
+          paddingRight={2}
         >
           <Grid item xs={12} sm={12} md={6}>
             <TextField

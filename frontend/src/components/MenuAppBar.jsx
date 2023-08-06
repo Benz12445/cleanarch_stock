@@ -1,4 +1,5 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,35 +12,47 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { useApp } from "../context/AppContext";
+import { useApp, useSetAppCtx } from "../context/AppContext";
 import { useLocation } from "react-router-dom";
 import { routes } from "../constants/route";
 
 export default function MenuAppBar() {
-  const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  // const { globalState } = useApp();
   const location = useLocation();
+  const { setGlobalState, logout } = useSetAppCtx();
+  const { globalState } = useApp();
+
+  const [auth, setAuth] = useState(globalState.auth);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
   };
 
   const handleMenu = (event) => {
+    console.log(`openmenu`);
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+    // navigate(`/login`);
+    logout();
+  };
+
+  const toggleDrawer = () => {
+    console.log(`asdasd`);
+    setGlobalState((prev) => ({ ...prev, isDrawerOpen: !prev.isDrawerOpen }));
+    // console.log(`after set global state`);
+    console.log(`after set global`, globalState);
   };
 
   const parseRouteName = () => {
-    const replace = location.pathname.toUpperCase().replace(/\//g, "");
-    console.log(`replace`, replace == "" ? "asdasd" : "0");
-    return replace == "" ? "Home" : routes[replace].name;
+    return "Product CRUD";
+    // const replace = location.pathname.toUpperCase().replace(/\//g, "");
+    const replace = location.pathname.toUpperCase().split("/");
+    console.log(`replace`, replace[1]);
+    return replace[1] == "" ? "Home" : routes[replace].name;
   };
-  parseRouteName();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -50,11 +63,11 @@ export default function MenuAppBar() {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={() => toggleDrawer()}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {/* {globalState.currentRoute} */}
             {parseRouteName()}
           </Typography>
           {auth && (
@@ -84,8 +97,8 @@ export default function MenuAppBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
+                <MenuItem onClick={handleClose}>Logout</MenuItem>
               </Menu>
             </div>
           )}

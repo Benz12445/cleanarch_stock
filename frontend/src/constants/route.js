@@ -15,4 +15,8 @@ export const routes = {
     path: "/product",
     name: "Product",
   },
+  EDITPRODUCT: {
+    path: "/product/:productId",
+    name: "Product",
+  },
 };

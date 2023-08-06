@@ -21,14 +21,16 @@ function ProductForm() {
   const onSubmit = (data) => {
     console.log(`on submit data`, data);
     execute({ ...data }).then((res) => {
-      if (res.status == 200 && res.status === "success") {
+      console.log(`data`, res);
+      if (res.status == 200 && res.data.status === "success") {
         navigate("/login");
       }
     });
   };
 
   return (
-    <>
+    <Container sx={{ padding: 2 }}>
+      {/* <></> */}
       <CssBaseline />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid
@@ -43,7 +45,7 @@ function ProductForm() {
             <TextField
               fullWidth
               id="standard-basic"
-              label="username"
+              label="Username"
               variant="standard"
               {...register("username", { required: true })}
             />
@@ -93,7 +95,7 @@ function ProductForm() {
           </Grid>
         </Grid>
       </form>
-    </>
+    </Container>
   );
 }
 

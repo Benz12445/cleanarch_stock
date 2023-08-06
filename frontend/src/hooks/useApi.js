@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import axios from "axios";
+import { useApp, useSetAppCtx } from "../context/AppContext";
 
 const base_url = import.meta.env.VITE_BASE_URL;
 console.log(`base url`, base_url);
@@ -10,10 +11,13 @@ const useApi = (url, method = "GET", headers = {}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState(null);
 
+  const { setGlobalState } = useSetAppCtx();
+
   const execute = useCallback(
     (data) => {
       return new Promise((res, rej) => {
         setIsLoading(true);
+        setGlobalState((prev) => ({ ...prev, loading: true }));
         setError(null);
         const config = {
           url: url,
@@ -21,6 +25,7 @@ const useApi = (url, method = "GET", headers = {}) => {
           method: method,
           data: data,
         };
+
         axios(config)
           .then((response) => {
             setResponse(response.data);
@@ -33,6 +38,7 @@ const useApi = (url, method = "GET", headers = {}) => {
           })
           .finally(() => {
             setIsLoading(false);
+            setGlobalState((prev) => ({ ...prev, loading: false }));
           });
       });
     },

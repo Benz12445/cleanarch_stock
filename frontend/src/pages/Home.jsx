@@ -23,28 +23,11 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import BaseLayout from "../components/baseLayout";
 
-const prodList = [
-  {
-    id: "1",
-    uid: "aaxax",
-    name: "asdasd",
-    qty: 15,
-    price: 10.0,
-  },
-  {
-    id: "1",
-    uid: "aaxax",
-    name: "asdasd",
-    qty: 15,
-    price: null,
-  },
-];
-
 function Home() {
   const [productList, setProductList] = useState([]);
   const { response, status, error, isLoading, execute } = useApi(
-    "/auth/login",
-    "POST"
+    "/product",
+    "GET"
   );
 
   const navigate = useNavigate();
@@ -52,29 +35,32 @@ function Home() {
   useEffect(() => {
     fetchData();
   }, []);
-
   const fetchData = async () => {
-    // prodList.map();
+    execute().then((res) => {
+      console.log(`after fetch api`, res);
+      const { data } = res.data;
+      setProductList(data);
+    });
   };
 
   return (
     <>
       <CssBaseline />
+      <Fab
+        size="medium"
+        color="primary"
+        aria-label="add"
+        sx={{ position: "absolute", right: "5%", bottom: "5%" }}
+        onClick={() => navigate("/product")}
+      >
+        <AddIcon />
+      </Fab>
       <BaseLayout>
-        <Fab
-          size="medium"
-          color="secondary"
-          aria-label="add"
-          sx={{ position: "absolute", right: "5%", bottom: "5%" }}
-          onClick={() => navigate("/product")}
-        >
-          <AddIcon />
-        </Fab>
-        <Grid container spacing={2} sx={{ width: "100vw", height: "100vh" }}>
+        <Grid container spacing={2} sx={{ width: "100vw" }}>
           <List sx={{ width: "100%" }}>
             {productList.map((item) => (
               <ListItem disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={() => navigate(`/product/${item.id}`)}>
                   <ListItemText
                     primary={parseNullToDashString(item.name)}
                     secondary={`${item.qty} left`}
