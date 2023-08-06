@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import CssBaseline from "@mui/material/CssBaseline";
 import useApi from "../hooks/useApi";
 import { useMatch, useMatches, useNavigate, useParams } from "react-router-dom";
-import BaseLayout from "../components/baseLayout";
+import BaseLayout from "../components/BaseLayout";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import BaseButton from "../components/BaseButton";

@@ -21,7 +21,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { parseNullToDashString } from "../utils/function";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import BaseLayout from "../components/baseLayout";
+import BaseLayout from "../components/BaseLayout";
 
 function Home() {
   const [productList, setProductList] = useState([]);
