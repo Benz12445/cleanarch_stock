@@ -49,7 +49,7 @@ export default function SwipeableTemporaryDrawer({ display }) {
           </ListItem>
         ))} */}
         <ListItem key={"Home"} disablePadding>
-          <ListItemButton onClick={() => navigate(`/`)}>
+          <ListItemButton sx={{ marginTop: 5 }} onClick={() => navigate(`/`)}>
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
